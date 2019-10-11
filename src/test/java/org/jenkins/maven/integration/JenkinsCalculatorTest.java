@@ -10,7 +10,7 @@ public class JenkinsCalculatorTest {
 	@Test
 	public void addTwoNumbersTest() {
 		JenkinsCalculator calculator = new JenkinsCalculator();
-		assertEquals(10, calculator.addTwoNumbers(5, 5));		
+		assertEquals(10, calculator.addTwoNumbers(5, 10));		
 	}
 	
 	@Test
