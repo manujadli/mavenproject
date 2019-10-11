@@ -16,19 +16,25 @@ pipeline {
             steps {
                 bat "mvn package"
             }
-        }
+        }		
 		
-		stage('run-parallel-branches') {
-			steps {
-				parallel(
-					a: {
-						echo "This is branch a"
-					   },
-					b: {
-						echo "This is branch b"
-					   }
-				)
-			}
-		}
+    }
+
+    post {
+        always {
+            echo 'One way or another, I have finished'           
+        }
+        success {
+            echo 'I succeeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }
     }
 }
