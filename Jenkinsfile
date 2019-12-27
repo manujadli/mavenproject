@@ -32,11 +32,9 @@ pipeline {
         }
         failure {
             echo 'I failed :('
-			echo 'Raising a bug In Jira'
-			steps{
-                jira_call_create_issue()
-            }
-			echo 'Bug raised in Jira'
+	    echo 'Raising a bug In Jira'
+	    jira_call_create_issue()
+	    echo 'Bug raised in Jira'
 			
         }
         changed {
@@ -48,6 +46,7 @@ pipeline {
 def jira_call_create_issue()
 {	
     echo 'Raising a bug In Jira'	
+    echo 'Bug raised in Jira'	
     echo "response: OK"    
     return "response: OK"
 }
