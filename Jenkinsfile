@@ -47,7 +47,8 @@ pipeline {
 
 def raise_jira_bug() {
     echo 'Inside raise_jira_bug()..'
-    def command = """{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Test ChargenNr\",\"description\":\"some description\",\"reporter\":{\"name\":\"manujadli\"},\"issuetype\":{\"id\":\"10006\"}}}"""
+	exception = "Tests run: 2, Failures: 1, Errors: 0, Skipped: 0 FAILURE! addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<11> but was:<15>"
+    def command = """{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Test Maven Test Failed\",\"description\":exception,\"reporter\":{\"name\":\"manujadli\"},\"issuetype\":{\"id\":\"10006\"}}}"""
     echo(command)
     response = httpRequest (consoleLogResponseBody: true,
       contentType: 'APPLICATION_JSON',
