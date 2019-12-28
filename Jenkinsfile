@@ -9,12 +9,13 @@ pipeline {
         }
         stage('Testing Stage') {
             steps {       
-		    echo 'Testing Stage'				
+				echo 'Starting Testing Stage'
+				bat "mvn test"				
             }
         }
         stage('Packaging Stage') {
             steps {
-                bat "mvn package"
+                bat "mvn package -DskipTests"
             }
         }		
 		
