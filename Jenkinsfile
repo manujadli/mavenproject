@@ -16,7 +16,7 @@ pipeline {
 				catch (exc) {
 					echo 'Something failed, I should sound the klaxons!'
 					echo err.getMessage()
-					throw
+					throw new Exception("Something went wrong!")
 				}
 								
             }
