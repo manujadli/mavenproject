@@ -1,6 +1,3 @@
-def API = "curl -u manujadli:Jbourne@2702 --header "Content-Type: application/json" -X POST --data "{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Test ChargenNr\",\"description\":\"some description\",\"issuetype\":{\"id\":\"10006\"}}}" http://localhost:8080/rest/api/2/issue/"
-def apiKey = ""
-
 pipeline {
     agent any
 
