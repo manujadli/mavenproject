@@ -36,7 +36,7 @@ pipeline {
         failure {
             echo 'I failed :('
 	    echo 'Raising a bug In Jira'
-	    apiKey = bat (script: API, returnStdout: true)
+		raise_jira_bug()	    
 	    echo 'Bug raised in Jira'
 			
         }
@@ -44,4 +44,19 @@ pipeline {
             echo 'Things were different before...'
         }
     }
+}
+
+
+def raise_jira_bug() {
+    echo 'Inside raise_jira_bug()..'
+    def command = """{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Test ChargenNr\",\"description\":\"some description\",\"reporter\":{\"name\":\"manujadli\"},\"issuetype\":{\"id\":\"10006\"}}}"""
+    echo(command)
+    response = httpRequest (consoleLogResponseBody: true,
+      contentType: 'APPLICATION_JSON',
+      httpMode: 'POST',
+	  authentication: 'credentialsID',
+      requestBody: command,
+      url: "http://localhost:8080/rest/api/2/issue/",
+      validResponseCodes: "200,201,400,500")
+    return response
 }
