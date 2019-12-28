@@ -17,7 +17,8 @@ pipeline {
 					catch (err) {
 						echo 'Inside catch .. caught exception'
 						echo 'Something failed, I should sound the klaxons!'
-						echo 'Err: Incremental Build failed with Error: ' + ${err}			
+						echo 'Err: Incremental Build failed with Error: ' + err.toString()
+						echo "Build Failed WgCDR : ${err}"							
 						
 					}
 					
