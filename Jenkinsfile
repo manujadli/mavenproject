@@ -3,6 +3,7 @@ pipeline {
 
     stages {
         stage('Cleaning Stage') {
+		println "hello Manu its cleaning stage"
             steps {
                 bat "mvn clean"
             }
