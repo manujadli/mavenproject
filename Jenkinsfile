@@ -10,15 +10,7 @@ pipeline {
         stage('Testing Stage') {
             steps {       
 				echo 'Starting Testing Stage'
-				try{
-					bat "mvn test"
-				}
-				catch (exc) {
-					echo 'Something failed, I should sound the klaxons!'
-					echo err.getMessage()
-					throw new Exception("Something went wrong!")
-				}
-								
+				bat "mvn test"				
             }
         }
         stage('Packaging Stage') {
