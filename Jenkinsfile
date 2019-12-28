@@ -8,10 +8,15 @@ pipeline {
             }
         }
         stage('Testing Stage') {
-            steps {       
+           try{ 
+			steps {       
 				echo 'Starting Testing Stage'
 				bat "mvn test"				
             }
+		   }
+		   catch (exc){
+			 echo 'Something failed, I should sound the klaxons!  error is exc.getMessage()'
+		   }
         }
         stage('Packaging Stage') {
             steps {
