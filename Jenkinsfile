@@ -1,9 +1,11 @@
+def API = "curl -u manujadli:Jbourne@2702 --header "Content-Type: application/json" -X POST --data "{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Test ChargenNr\",\"description\":\"some description\",\"issuetype\":{\"id\":\"10006\"}}}" http://localhost:8080/rest/api/2/issue/"
+def apiKey = ""
+
 pipeline {
     agent any
 
     stages {
-        stage('Cleaning Stage') {
-		println "hello Manu its cleaning stage"
+        stage('Cleaning Stage') {		
             steps {
                 bat "mvn clean"
             }
@@ -33,7 +35,8 @@ pipeline {
         }
         failure {
             echo 'I failed :('
-	    echo 'Raising a bug In Jira'			
+	    echo 'Raising a bug In Jira'
+	    apiKey = bat (script: API, returnStdout: true)
 	    echo 'Bug raised in Jira'
 			
         }
