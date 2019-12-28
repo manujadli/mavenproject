@@ -10,8 +10,17 @@ pipeline {
         stage('Testing Stage') {
             steps {
 				script {
-					echo 'Starting Testing Stage'
-					bat "mvn test"	
+					try {
+						echo 'Starting Testing Stage'
+						bat "mvn test"	
+					}
+					catch (err) {
+						echo 'Inside catch .. caught exception'
+						echo 'Something failed, I should sound the klaxons!'
+						echo err.getMessage()
+						
+					}
+					
 				}							
             }
         }
