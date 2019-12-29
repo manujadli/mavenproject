@@ -114,13 +114,13 @@ def drop_email_notification(jira_id) {
 	
 	mail bcc: '', body: '''
 	Job Name  Metaswitch2
-	Build Number  92
+	Build Number  12
 	Build Status  FAILURE
-	Jira Bug : MET-40 - Maven Test Failed addTwoNumbersTest
+	Jira Bug : MET-42 - Maven Test Failed addTwoNumbersTest
 	Description : addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<11> but was:<15>
 
 
-    -Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com'
+    -Manu''', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com, manujadli@gmail.com'
 	
 	
 }
