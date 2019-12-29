@@ -98,6 +98,7 @@ def drop_email_notification() {
 	echo "current build number: ${currentBuild.number}"
 	echo "previous build number: ${currentBuild.previousBuild.getNumber()}"
 	echo "Build Description: ${currentBuild.getDescription()}"
+	echo "Job Name: ${env.JOB_NAME}"
 	def causes = currentBuild.rawBuild.getCauses().toString()
     echo "causes: ${causes}"
 }
