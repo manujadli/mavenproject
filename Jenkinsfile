@@ -45,8 +45,8 @@ pipeline {
 					}
 					catch (err) {
 						currentBuild.result = 'UNSTABLE'
-						packaging_failed()
-						throw err
+						packaging_failed()						
+						throw new Exception("Packaging stage failed. Something went wrong!")
 					}
 				
 				}
