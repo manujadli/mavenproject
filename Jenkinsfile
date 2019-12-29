@@ -104,15 +104,24 @@ def packaging_failed() {
 def drop_email_notification(jira_id) {
 	echo 'Inside drop_email_notification()..'
 	echo "Build Status RESULT: ${currentBuild.result}"
+	def build_s = ${currentBuild.result}
 	echo "current build number: ${currentBuild.number}"
+	def build_n = ${currentBuild.number}
 	echo "previous build number: ${currentBuild.previousBuild.getNumber()}"
 	echo "Build Description: ${currentBuild.getDescription()}"
 	echo "Job Name: ${env.JOB_NAME}"
+	def job_n = ${env.JOB_NAME}
 	def causes = currentBuild.rawBuild.getCauses().toString()
     echo "causes: ${causes}"	
 	
-	mail bcc: '', body: '''Build number: ${currentBuild.number} Build Status RESULT: ${currentBuild.result} Job Name: ${env.JOB_NAME} + jira_id
-	-Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com'
+	
+	mail bcc: '', body: '''
+	Job Name  job_n
+	Build Number  build_n
+	Build Status  build_s
+
+
+    -Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com'
 	
 	
 }
