@@ -95,4 +95,8 @@ def packaging_failed() {
 def drop_email_notification() {
 	echo 'Inside drop_email_notification()..'
 	echo "Build Status RESULT: ${currentBuild.result}"
+	echo "current build number: ${currentBuild.number}"
+	echo "previous build number: ${currentBuild.previousBuild.getNumber()}"
+	def causes = currentBuild.rawBuild.getCauses()
+    echo "causes: ${causes}"
 }
