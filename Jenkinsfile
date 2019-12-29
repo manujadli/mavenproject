@@ -17,7 +17,7 @@ pipeline {
 					catch (err) {
 						echo 'Inside catch .. caught exception'
 						echo 'Incremental Build has failed!'						
-						echo 'Err: Incremental Build failed with Error: ' + err.getStackTrace()						
+						echo 'Err: Incremental Build failed with Error: ' + err.getLocalizedMessage()					
 						throw err
 						
 					}
