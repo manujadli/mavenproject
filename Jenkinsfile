@@ -16,11 +16,8 @@ pipeline {
 					}
 					catch (err) {
 						echo 'Inside catch .. caught exception'
-						echo 'Something failed, I should sound the klaxons!'
-						def w = new StringWriter()
-						err.printStackTrace(new PrintWriter(w))
-						echo 'Err: Incremental Build failed with Error: ' + err.toString()
-						echo "Build Failed WgCDR : ${w}"
+						echo 'Incremental Build has failed!'						
+						echo 'Err: Incremental Build failed with Error: ' + err.getCause()						
 						throw err
 						
 					}
