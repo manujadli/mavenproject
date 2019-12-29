@@ -30,7 +30,7 @@ pipeline {
 						echo 'Incremental Build has failed!'						
 						echo 'Err: Incremental Build failed with Error: ' + err.getLocalizedMessage()	
 						test_failed()
-						throw err
+						throw new Exception("Testing failed. Something went wrong!")
 						
 					}
 					
@@ -41,7 +41,7 @@ pipeline {
             steps {
 				script {
 					try {
-						bat "mvn packageeee -DskipTests"
+						bat "mvn package -DskipTests"
 					}
 					catch (err) {
 						currentBuild.result = 'UNSTABLE'
@@ -76,6 +76,7 @@ def test_failed() {
       requestBody: command,
       url: "http://localhost:8080/rest/api/2/issue/",
       validResponseCodes: "200,201,400,500")
+	drop_email_notification("MET-36 - Maven Test Failed addTwoNumbersTest")
     return response
 }
 
@@ -114,13 +115,13 @@ def drop_email_notification(jira_id) {
 	
 	mail bcc: '', body: '''
 	Job Name  Metaswitch2
-	Build Number  12
+	Build Number  14
 	Build Status  FAILURE
 	Jira Bug : MET-42 - Maven Test Failed addTwoNumbersTest
-	Description : addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<11> but was:<15>
+	Description : addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<12> but was:<15>
 
 
-    -Manu''', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com, manujadli@gmail.com'
+    -Manu''', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com, Kirill.Lukashin@ibm.com'
 	
 	
 }
