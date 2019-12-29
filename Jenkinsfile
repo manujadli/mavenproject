@@ -104,8 +104,7 @@ def drop_email_notification() {
 	
 	emailext (
 		mail bcc: '', body: '''Build Failed
-
-	   -Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable', to: 'majadli2@in.ibm.com'
+	    -Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable', to: 'majadli2@in.ibm.com'
 	)
 	
 }
