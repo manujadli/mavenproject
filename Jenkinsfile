@@ -66,7 +66,7 @@ pipeline {
 
 
 def test_failed() {
-    echo 'Inside raise_jira_bug()..'
+    echo 'Inside test_failed()..'
     def command = """{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Maven Test Failed addTwoNumbersTest\",\"description\":\"addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<11> but was:<15>\",\"reporter\":{\"name\":\"manujadli\"},\"issuetype\":{\"id\":\"10006\"}}}"""
     echo(command)
     response = httpRequest (consoleLogResponseBody: true,
@@ -80,14 +80,15 @@ def test_failed() {
 }
 
 def clean_failed() {
-    echo 'Inside raise_jira_bug_clean_failed()..'
+    echo 'Inside clean_failed()..'
     response = "200 OK"
     return response
 }
 
 def packaging_failed() {
-    echo 'Inside raise_jira_bug_packaging_failed()..'
+    echo 'Inside packaging_failed()..'
     response = "200 OK"
+	drop_email_notification()
     return response
 }
 
