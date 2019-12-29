@@ -4,14 +4,17 @@ pipeline {
     stages {
         stage('Cleaning Stage') {		
             steps {
-				try {
+			   script {
+					try {
 						bat "mvn clean"
 					}
-			    catch (err) {
-					currentBuild.result = 'UNSTABLE'
-					raise_jira_bug_clean_failed()
-					throw err
-				}
+					catch (err) {
+						currentBuild.result = 'UNSTABLE'
+						raise_jira_bug_clean_failed()
+						throw err
+					}
+				 }
+				
             }
         }
         stage('Testing Stage') {
@@ -35,14 +38,18 @@ pipeline {
         }
         stage('Packaging Stage') {
             steps {
-			    try {
+				script {
+					try {
 						bat "mvn packageeee -DskipTests"
 					}
-				catch (err) {
-					currentBuild.result = 'UNSTABLE'
-					raise_jira_bug_packaging_failed()
-					throw err
+					catch (err) {
+						currentBuild.result = 'UNSTABLE'
+						raise_jira_bug_packaging_failed()
+						throw err
+					}
+				
 				}
+			    
             }
         }		
 		
