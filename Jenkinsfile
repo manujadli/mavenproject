@@ -100,11 +100,10 @@ def drop_email_notification() {
 	echo "Build Description: ${currentBuild.getDescription()}"
 	echo "Job Name: ${env.JOB_NAME}"
 	def causes = currentBuild.rawBuild.getCauses().toString()
-    echo "causes: ${causes}"
+    echo "causes: ${causes}"	
 	
-	emailext (
-		mail bcc: '', body: '''Build Failed
-	    -Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable', to: 'majadli2@in.ibm.com'
-	)
+	mail bcc: '', body: '''Build Failed
+	-Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable', to: 'majadli2@in.ibm.com'
+	
 	
 }
