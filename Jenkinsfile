@@ -10,7 +10,7 @@ pipeline {
 					}
 					catch (err) {
 						currentBuild.result = 'UNSTABLE'
-						raise_jira_bug_clean_failed()
+						clean_failed()
 						throw err
 					}
 				 }
@@ -28,7 +28,8 @@ pipeline {
 						currentBuild.result = 'UNSTABLE'
 						echo 'Inside catch .. caught exception'
 						echo 'Incremental Build has failed!'						
-						echo 'Err: Incremental Build failed with Error: ' + err.getLocalizedMessage()					
+						echo 'Err: Incremental Build failed with Error: ' + err.getLocalizedMessage()	
+						test_failed()
 						throw err
 						
 					}
@@ -44,7 +45,7 @@ pipeline {
 					}
 					catch (err) {
 						currentBuild.result = 'UNSTABLE'
-						raise_jira_bug_packaging_failed()
+						packaging_failed()
 						throw err
 					}
 				
@@ -57,29 +58,14 @@ pipeline {
 
     post {
         always {
-            echo 'One way or another, I have finished'           
-        }
-        success {
-            echo 'I succeeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
-        }
-        failure {
-            echo 'I failed :('
-	    echo 'Raising a bug In Jira'
-		raise_jira_bug()	    
-	    echo 'Bug raised in Jira'
-			
-        }
-        changed {
-            echo 'Things were different before...'
-        }
+            echo 'One way or another, I have finished'
+			echo "RESULT: ${currentBuild.result}"
+        }        
     }
 }
 
 
-def raise_jira_bug() {
+def test_failed() {
     echo 'Inside raise_jira_bug()..'
     def command = """{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Maven Test Failed addTwoNumbersTest\",\"description\":\"addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<11> but was:<15>\",\"reporter\":{\"name\":\"manujadli\"},\"issuetype\":{\"id\":\"10006\"}}}"""
     echo(command)
@@ -93,14 +79,19 @@ def raise_jira_bug() {
     return response
 }
 
-def raise_jira_bug_clean_failed() {
+def clean_failed() {
     echo 'Inside raise_jira_bug_clean_failed()..'
     response = "200 OK"
     return response
 }
 
-def raise_jira_bug_packaging_failed() {
+def packaging_failed() {
     echo 'Inside raise_jira_bug_packaging_failed()..'
     response = "200 OK"
     return response
+}
+
+def drop_email_notification() {
+	echo 'Inside drop_email_notification()..'
+	echo "Build Status RESULT: ${currentBuild.result}"
 }
