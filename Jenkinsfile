@@ -87,12 +87,21 @@ def clean_failed() {
 
 def packaging_failed() {
     echo 'Inside packaging_failed()..'
-    response = "200 OK"
-	drop_email_notification()
+    response = "200 OK"	
+	def command = """{\"fields\":{\"project\":{\"key\":\"MET\"},\"summary\":\"Maven Test Failed addTwoNumbersTest\",\"description\":\"addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<11> but was:<15>\",\"reporter\":{\"name\":\"manujadli\"},\"issuetype\":{\"id\":\"10006\"}}}"""
+    echo(command)
+    response = httpRequest (consoleLogResponseBody: true,
+      contentType: 'APPLICATION_JSON',
+      httpMode: 'POST',
+	  authentication: 'credentialsID',
+      requestBody: command,
+      url: "http://localhost:8080/rest/api/2/issue/",
+      validResponseCodes: "200,201,400,500")
+	 drop_email_notification("MET-36 - Maven Test Failed addTwoNumbersTest")
     return response
 }
 
-def drop_email_notification() {
+def drop_email_notification(jira_id) {
 	echo 'Inside drop_email_notification()..'
 	echo "Build Status RESULT: ${currentBuild.result}"
 	echo "current build number: ${currentBuild.number}"
@@ -102,8 +111,8 @@ def drop_email_notification() {
 	def causes = currentBuild.rawBuild.getCauses().toString()
     echo "causes: ${causes}"	
 	
-	mail bcc: '', body: '''Build Failed
-	-Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable', to: 'majadli2@in.ibm.com'
+	mail bcc: '', body: '''Build number: ${currentBuild.number} Build Status RESULT: ${currentBuild.result} Job Name: ${env.JOB_NAME} + jira_id
+	-Manu''', cc: '', from: '', replyTo: '', subject: 'Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com'
 	
 	
 }
