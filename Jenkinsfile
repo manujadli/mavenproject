@@ -121,7 +121,7 @@ def drop_email_notification(jira_id) {
 	Description : addTwoNumbersTest(org.jenkins.maven.integration.JenkinsCalculatorTest) java.lang.AssertionError: expected:<12> but was:<15>
 
 
-    -Manu''', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com, Kirill.Lukashin@ibm.com'
+    -Manu''', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Unstable - Packaging Failed', to: 'majadli2@in.ibm.com'
 	
 	
 }
