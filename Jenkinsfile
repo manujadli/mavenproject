@@ -40,8 +40,7 @@ pipeline {
 					catch (err) {
 						echo 'Inside catch .. caught exception'
 						echo 'Marking Build as UNSTABLE'
-						currentBuild.result = 'UNSTABLE'
-						summary =  "Build Failure" + " <<>> " +  "${env.JOB_BASE_NAME}" + " <<>> " + "${env.STAGE_NAME}" + " <<>> " + ${currentBuild.number}
+						currentBuild.result = 'UNSTABLE'						
 						echo 'Incremental Build has failed!'						
 						echo "Err: Incremental Build failed with Error:  ${err}"	
 						test_failed()
