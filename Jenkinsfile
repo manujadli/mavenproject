@@ -51,9 +51,7 @@ pipeline {
 						currentBuild.result = 'UNSTABLE'	
 						JOB_NAME = "${env.JOB_BASE_NAME}"
 						BUILD_NUMBER = "${currentBuild.number}"
-						STAGE_NAME = "${env.STAGE_NAME}"
-						SUMMARY = "Build Failure" + " <<>> " +  "${JOB_NAME}" + " <<>> " + "${STAGE_NAME}" + " <<>> " + ${BUILD_NUMBER}
-						DETAILED_DESCRIPTION = "${STAGE_NAME} has failed with error ${err}"						
+						STAGE_NAME = "${env.STAGE_NAME}"										
 						echo 'Incremental Build has failed!'						
 						throw new Exception("Tesing stage failed with error : ${err}")
 						
