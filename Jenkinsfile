@@ -35,7 +35,9 @@ pipeline {
 				script {
 					try {
 						echo 'Starting Testing Stage'
-						bat "mvn test"	
+						result_exc = bat "mvn test"	
+						echo "printing result_exc"
+						echo "${result_exc}"
 					}
 					catch (err) {
 						echo 'Inside catch .. caught exception'
