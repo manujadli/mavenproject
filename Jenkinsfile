@@ -35,18 +35,14 @@ pipeline {
 				script {
 					try {
 						echo 'Starting Testing Stage'
-						result_exc = bat "mvn test"	
-						echo "printing result_exc"
-						echo "${result_exc}"
+						bat "mvn test"							
 					}
 					catch (err) {
 						echo 'Inside catch .. caught exception'
 						echo 'Marking Build as UNSTABLE'
 						currentBuild.result = 'UNSTABLE'						
 						echo 'Incremental Build has failed!'						
-						echo "Err: Incremental Build failed with Error:  ${err}"	
-						test_failed()
-						
+						throw new Exception("Tesing stage failed with error : ${err}")
 						
 					}
 					
@@ -73,10 +69,18 @@ pipeline {
     }
 
     post {
-        always {
+	
+		success {
+					echo 'I have got success'
+			}
+        
+		failure {
+				 echo 'I have failed'
+			}
+		
+		always {
             echo 'One way or another, I have finished'
-			echo "RESULT: ${currentBuild.result}"
-			echo "Summary is : ${summary}"			
+			echo "RESULT: ${currentBuild.result}"				
         }        
     }
 }
