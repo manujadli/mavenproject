@@ -1,17 +1,18 @@
 pipeline {
     agent any
-
-	ORGANISATION = 'dishadmin'
-	GOGSREPO = 'cicd_test_os'
-	TEST_ENV = 'dev'
-	GOGS_HOST = "http://172.27.14.80:32734/"
-	NEXUS_URL = "http://172.27.14.80:32739/"
-	VNF_NAME = 'cicd_test_os'	
-	projectKey = 'MET'
-	summary = 'Default Summary'
-	detailed_desc = "Default Description"
-	issue_type = 'Bug'
-	assignee = 'manujadli'
+		environment {
+		ORGANISATION = 'dishadmin'
+		GOGSREPO = 'cicd_test_os'
+		TEST_ENV = 'dev'
+		GOGS_HOST = "http://172.27.14.80:32734/"
+		NEXUS_URL = "http://172.27.14.80:32739/"
+		VNF_NAME = 'cicd_test_os'	
+		projectKey = 'MET'
+		summary = 'Default Summary'
+		detailed_desc = "Default Description"
+		issue_type = 'Bug'
+		assignee = 'manujadli'
+	}
 
     stages {
         stage('Cleaning Stage') {		
