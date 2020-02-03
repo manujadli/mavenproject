@@ -4,6 +4,7 @@ def STAGE_NAME
 def EXCEPTION_DETAILS
 def SUMMARY
 def DETAILED_DESCRIPTION
+def var1
 
 
 pipeline {
@@ -52,7 +53,9 @@ pipeline {
 						JOB_NAME = "${env.JOB_BASE_NAME}"
 						BUILD_NUMBER = "${currentBuild.number}"
 						STAGE_NAME = "${env.STAGE_NAME}"
-						SUMMARY = "${env.JOB_BASE_NAME} : " + "${currentBuild.number} : " + "${env.STAGE_NAME}"
+						SUMMARY = "Jenkins Stage failed : " + "${env.STAGE_NAME}"  
+						var1 = "Pipleline >> ${env.JOB_BASE_NAME} : " + "Build Number >> ${currentBuild.number} : " + "Stage >> ${env.STAGE_NAME}"
+						DETAILED_DESCRIPTION = "${var1}. ${env.STAGE_NAME} stage failed with error : ${err}"
 						echo "SUMMARY ::  ${SUMMARY}"
 						echo 'Incremental Build has failed!'						
 						throw new Exception("Tesing stage failed with error : ${err}")
@@ -91,6 +94,15 @@ pipeline {
 				 echo 'I have failed'
 				 echo "Summary is ${JOB_NAME}"
 				 echo "snapshot is :  ${SUMMARY}"
+				 echo "Raising a JIRA Bug for ${JOB_NAME} : ${STAGE_NAME}"
+				 build job: 'JiraAPI', 
+					parameters: [
+						string(name: 'projectKey', value: "${projectKey}"),
+						string(name: 'summary', value: "${SUMMARY}"),
+						string(name: 'description', value: "${DETAILED_DESCRIPTION}"),
+						string(name: 'issuetype', value: "${issue_type}"),
+						string(name: 'assignee', value: "${assignee}")
+					]
 				 
 			}
 		
