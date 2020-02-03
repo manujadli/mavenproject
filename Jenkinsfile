@@ -53,7 +53,7 @@ pipeline {
 						JOB_NAME = "${env.JOB_BASE_NAME}"
 						BUILD_NUMBER = "${currentBuild.number}"
 						STAGE_NAME = "${env.STAGE_NAME}"
-						SUMMARY = "Jenkins Stage failed : " + "${env.STAGE_NAME}"  
+						SUMMARY = "Pipeline ${JOB_NAME} : " + "Stage ${env.STAGE_NAME} >> Failed"  
 						var1 = "Pipleline >> ${env.JOB_BASE_NAME} : " + "Build Number >> ${currentBuild.number} : " + "Stage >> ${env.STAGE_NAME}"
 						DETAILED_DESCRIPTION = "${var1}. ${env.STAGE_NAME} stage failed with error : ${err}"
 						echo "SUMMARY ::  ${SUMMARY}"
