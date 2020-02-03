@@ -72,6 +72,14 @@ pipeline {
 	
 		success {
 					echo 'I have got success'
+					build job: 'JiraAPI', 
+					parameters: [
+						string(name: 'projectKey', value: "MET"),
+						string(name: 'summary', value: "Something has happened"),
+						string(name: 'description', value: "Something big has happened"),
+						string(name: 'issuetype', value: "Bug"),
+						string(name: 'assignee', value: "manujadli")
+					]
 			}
         
 		failure {
