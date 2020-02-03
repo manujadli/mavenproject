@@ -87,7 +87,7 @@ pipeline {
         
 		failure {
 				 echo 'I have failed'
-				 echo "Summary is ${SUMMARY}"
+				 echo "Summary is ${JOB_NAME}"
 				 
 			}
 		
