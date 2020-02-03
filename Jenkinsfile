@@ -1,3 +1,11 @@
+def JOB_NAME
+def BUILD_NUMBER
+def STAGE_NAME
+def EXCEPTION_DETAILS
+def SUMMARY
+def DETAILED_DESCRIPTION
+
+
 pipeline {
     agent any
 		environment {
@@ -40,7 +48,12 @@ pipeline {
 					catch (err) {
 						echo 'Inside catch .. caught exception'
 						echo 'Marking Build as UNSTABLE'
-						currentBuild.result = 'UNSTABLE'						
+						currentBuild.result = 'UNSTABLE'	
+						JOB_NAME = ${env.JOB_BASE_NAME}
+						BUILD_NUMBER = ${currentBuild.number}
+						STAGE_NAME = ${env.STAGE_NAME}
+						SUMMARY = "Build Failure" + " <<>> " +  "${JOB_NAME}" + " <<>> " + "${STAGE_NAME}" + " <<>> " + ${BUILD_NUMBER}
+						DETAILED_DESCRIPTION = "${STAGE_NAME} has failed with error ${err}"						
 						echo 'Incremental Build has failed!'						
 						throw new Exception("Tesing stage failed with error : ${err}")
 						
@@ -76,14 +89,8 @@ pipeline {
         
 		failure {
 				 echo 'I have failed'
-				 build job: 'JiraAPI', 
-					parameters: [
-						string(name: 'projectKey', value: "MET"),
-						string(name: 'summary', value: "Something has happened"),
-						string(name: 'description', value: "Something big has happened"),
-						string(name: 'issuetype', value: "Bug"),
-						string(name: 'assignee', value: "manujadli")
-					]
+				 echo "Summary is ${SUMMARY}"
+				 
 			}
 		
 		always {
