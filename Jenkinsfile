@@ -29,6 +29,7 @@ pipeline {
 			   script {
 					try {
 						bat "mvn clean"
+						throw new Exception("Throw to stop pipeline")
 					}
 					catch (err) {
 						currentBuild.result = 'UNSTABLE'
