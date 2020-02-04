@@ -29,7 +29,7 @@ pipeline {
 			   script {
 					try {
 						bat "mvn clean"
-						throw new Exception("Throw to stop pipeline")
+						throw new Exception("Throw some random exception")
 					}
 					catch (err) {
 						echo 'Inside catch .. caught exception'
