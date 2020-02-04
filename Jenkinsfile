@@ -32,9 +32,18 @@ pipeline {
 						throw new Exception("Throw to stop pipeline")
 					}
 					catch (err) {
-						currentBuild.result = 'UNSTABLE'
-						clean_failed()
-						throw err
+						echo 'Inside catch .. caught exception'
+						echo 'Marking Build as UNSTABLE'
+						currentBuild.result = 'UNSTABLE'	
+						JOB_NAME = "${env.JOB_BASE_NAME}"
+						BUILD_NUMBER = "${currentBuild.number}"
+						STAGE_NAME = "${env.STAGE_NAME}"
+						SUMMARY = "Pipeline ${JOB_NAME} : " + "Stage ${env.STAGE_NAME} >> Failed"  
+						var1 = "Pipleline >> ${env.JOB_BASE_NAME} : " + "Build Number >> ${currentBuild.number} : " + "Stage >> ${env.STAGE_NAME}"
+						DETAILED_DESCRIPTION = "${var1}. ${env.STAGE_NAME} stage failed with error : ${err}"
+						echo "SUMMARY ::  ${SUMMARY}"
+						echo 'Incremental Build has failed!'						
+						throw new Exception("Tesing stage failed with error : ${err}")
 					}
 				 }
 				
